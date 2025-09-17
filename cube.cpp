@@ -12,7 +12,6 @@
 const int WIDTH = 80;
 const int HEIGHT = 40;
 
-// Constants for 3D rendering
 const float CUBE_SIZE = 12.0f;
 const float CAMERA_DISTANCE = 4.0f;
 const float FOV = 90.0f;
@@ -23,7 +22,7 @@ T clamp(const T& min, const T& max, const T& value)
 	return std::min(std::max(value, min), max);
 }
 
-const char SHADES[] = ".:-=+*#%@";
+const char SHADES[] = ".-=+*#%@";
 
 struct Point3D
 {
@@ -87,8 +86,8 @@ void drawTriangle(std::vector<std::vector<char>>& screen,
 					if (depth < zbuffer[y][x]) {
 						zbuffer[y][x] = depth;
 
-						int shadeIdx = static_cast<int>((depth - CAMERA_DISTANCE) * 2);
-						shadeIdx = clamp(shadeIdx, 0, (int)sizeof(SHADES) - 2);
+						int shadeIdx = static_cast<int>((depth - CAMERA_DISTANCE) * 3);
+						shadeIdx = clamp(0, static_cast<int>(sizeof(SHADES)) - 2, shadeIdx);
 						char c = SHADES[shadeIdx];
 
 						screen[y][x] = c;
